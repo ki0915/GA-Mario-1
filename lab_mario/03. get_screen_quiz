@@ -22,6 +22,15 @@ class MyApp(QWidget):
         # 창 제목 설정
         self.setWindowTitle('GA-Mario')
 
+       env.step(np.array([0, 0, 0, 0, 0, 0, 0, 0]))
+
+        # 타이머 생성
+        qtimer = QTimer(self)
+        # 타이머에 실행할 함수 연결
+        qtimer.timeout.connect(self.timer)
+        # 1초(1000밀리초)마다 연결된 함수를 실행
+        qtimer.start(1000 // 60)
+
         label_image = QLabel(self)
 
         image = screen
@@ -32,12 +41,43 @@ class MyApp(QWidget):
         label_image.setPixmap(pixmap)
         label_image.setGeometry(0, 0, screen.shape[0]*2, screen.shape[1]*2)
 
-            
-
 
 
         # 창 띄우기
         self.show()
+
+    def keyPressEvent(self, event):
+       key = event.key()
+       if key == event.key_Up:
+           self.press_button[4] = 1
+       elif key == event.key_Down:
+           self.press_button[5] = 1
+       elif key == event.key_Left:
+           self.press_button[6] = 1
+       elif key == event.key_Right:
+           self.press_button[7] = 1
+       elif key == Qt.Key_A:
+           self.press_button[8] = 1
+       elif key == Qt.Key_B:
+           self.press_button[0] = 1
+
+
+    def keyReleaseEvent(self, event):
+        key = event.key()
+
+        if key == Qt.Key_Up:
+            self.button[4] = 0
+        if key == Qt.Key_Down:
+            self.button[5] = 0
+        if key == Qt.Key_Left:
+            self.button[6] = 0
+        if key == Qt.Key_Right:
+            self.button[7] = 0
+        if key == Qt.Key_A:
+            self.button[8] = 0
+        if key == Qt.Key_B:
+            self.button[0] = 0
+
 
 
 if __name__ == '__main__':

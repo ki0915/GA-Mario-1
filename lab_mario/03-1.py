@@ -8,6 +8,12 @@ from PyQt5.QtWidgets import QApplication,\
     QWidget, QLabel, QPushButton
 import numpy as np
 
+env = retro.make(game='SuperMarioBros-Nes', state='Level1-1')
+
+env.reset()
+
+screen = env.get_screen()
+
 
 class MyApp(QWidget):
     def __init__(self):
@@ -16,14 +22,6 @@ class MyApp(QWidget):
         self.setFixedSize(224, 240)
         # 창 제목 설정
         self.setWindowTitle('GA Mario')
-
-        env = retro.make(game='SuperMarioBros-Nes', state='Level1-1')
-
-        env.reset()
-
-        screen = env.get_screen()
-
-
 
         # 이미지
         label_image = QLabel(self)
